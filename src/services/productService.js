@@ -43,7 +43,7 @@ const getProductListByKeyword = async (req) => {
     console.log("queryKeyword:", keyword);
     const connection = await getConnection();
     const [results, fields] = await connection.query(
-      "SELECT IdProducto, Nombre FROM productos WHERE nombre LIKE ? LIMIT 20",
+      "SELECT IdProducto, Nombre FROM productos WHERE nombre LIKE ? LIMIT 30",
       keyword
     );
     return results;
