@@ -30,12 +30,21 @@ const getProductByNumber = async (req) => {
       ORDER BY precios_venta.fechamod DESC LIMIT 1`,
       productNumber
     );
+
+    // Verifica si el campo 'FechaALTA' está presente en los resultados
+    if (results.length > 0 && results[0].hasOwnProperty('FechaALTA')) {
+      console.log('FechaALTA presente en los resultados');
+    } else {
+      console.log('FechaALTA no está presente en los resultados');
+    }
+
     return results;
   } catch (error) {
     console.log("Error en la consulta:", error);
     return error.message;
   }
 };
+
 const getProductListByKeyword = async (req) => {
   try {
     let { keyword } = req.params;
