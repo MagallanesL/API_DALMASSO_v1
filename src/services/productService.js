@@ -23,7 +23,8 @@ const getProductByNumber = async (req) => {
     let { productNumber } = req.params;
     const connection = await getConnection();
     const [results, fields] = await connection.query(
-      `SELECT productos.*, precios_venta.precio, precios_venta.moneda FROM productos
+      `SELECT productos.*, precios_venta.precio, precios_venta.moneda, productos.FechaALTA
+      FROM productos
       JOIN precios_venta ON precios_venta.IdProducto = productos.IdProducto
       WHERE productos.numero = ?
       ORDER BY precios_venta.fechamod DESC LIMIT 1`,
@@ -35,7 +36,6 @@ const getProductByNumber = async (req) => {
     return error.message;
   }
 };
-
 const getProductListByKeyword = async (req) => {
   try {
     let { keyword } = req.params;
@@ -57,7 +57,7 @@ const getAllProductNames = async () => {
   try {
     const connection = await getConnection();
     const [results, fields] = await connection.query(
-      "SELECT IdProducto,nombre FROM productos LIMIT 20",
+      "SELECT IdProducto,nombre FROM productos LIMIT 60",
     );
     return results;
   } catch (error) {
